@@ -1,0 +1,7 @@
+_sass
+.vscode
+data
+*.ipynb
+README.md
+.git
+.gitignore
