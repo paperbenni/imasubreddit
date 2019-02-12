@@ -1,6 +1,5 @@
 FROM python
 RUN pip install praw
-RUN apt update && apt install rclone && apt clean
 
 RUN wget https://github.com/ncw/rclone/releases/download/v1.46/rclone-v1.46-linux-amd64.deb && \
 mv *.deb rclone.deb && \
