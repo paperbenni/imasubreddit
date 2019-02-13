@@ -22,5 +22,5 @@ while :; do
     rclone copy ./"$DATE" mega:"$DATE"
     rm -rf $DATE
     echo "exited"
-    sleep 10m
+    sleep 5m
 done
