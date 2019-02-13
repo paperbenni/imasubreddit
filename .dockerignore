@@ -2,6 +2,8 @@ _sass
 .vscode
 data
 *.ipynb
-README.md
+*.md
 .git
 .gitignore
+build.sh
+unite.sh
