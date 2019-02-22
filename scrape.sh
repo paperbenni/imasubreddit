@@ -8,6 +8,10 @@ if [ -z "$MEGAPASSWORD" ]; then
     MEGAPASSWORD='ycssGxxdacd-RT5P_labBE0T0xtG0Nnznx0'
 fi
 
+if ! [ -z "$REDDIT" ]; then
+    mkdir "$REDDIT"
+fi
+
 pushd ~/.config/rclone
 sed -i -e 's/'"megauser"'/'"$MEGAUSER"'/g' rclone.conf
 sed -i -e 's/'"megapassword"'/'"$MEGAPASSWORD"'/g' rclone.conf
