@@ -1,5 +1,7 @@
+# this scrapes
 from praw.models import MoreComments
 import praw
+
 import os
 from os import environ
 
@@ -21,7 +23,7 @@ reddit = praw.Reddit(client_id=clientid,
                      client_secret=clientsecret,
                      user_agent='imasubreddit')
 
-#get the top 
+#get the top
 subreddit = reddit.subreddit(reddittopic)
 for submission in subreddit.top(limit=10000):
     if limitreached:
@@ -46,15 +48,13 @@ for submission in subreddit.top(limit=10000):
                 else:
                     commentcounter = 0
                     limitreached = True
-                    break     
+                    break
 
-                with open(reddittopic + "data/train.from", "a") as myfile:
-                    myfile.write(comment.body.replace('\n', '') + '\n')
-                for reply in comment.replies:
-                    with open(reddittopic + "data/train.to", "a") as myfile:
-                        commentstring = reply.body.replace('\n', '') + '\n'
+                with open("data/" + reddittopic + ".txt", "a") as myfile:
+                    for reply in comment.replies:
+                        commentstring = comment.body.replace('\n', '') + ":;:" + reply.body.replace('\n', '') + '\n'
                         myfile.write(commentstring)
                         print(commentstring)
-                    break
+                        break
 
 print("done")
