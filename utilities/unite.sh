@@ -4,7 +4,7 @@ for folder in ./*; do
         continue
     fi
     pushd folder
-    cat train.from >> ../train.from
-    cat train.to >> ../train.to
+    cat *.txt >> ../train.txt
     popd
 done
+cat train.txt | grep -v 'https' | egrep -v '\[deleted\]'
