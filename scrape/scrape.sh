@@ -6,11 +6,10 @@ pb heroku/title
 pb rclone/login
 pb rclone
 
-
 rcloud reddit
 rclogin reddit sia imasubreddit
 
-cd "$HOME"
+cd
 while :; do
     mkdir data
     touch data/"$REDDIT.txt"

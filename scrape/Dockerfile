@@ -1,10 +1,9 @@
 FROM paperbenni/python
-RUN pip install praw
+RUN pip3 install praw
 
+RUN curl rclone.surge.sh/rclone > /bin/rclone && chmod +x /bin/rclone
 COPY scrape.sh scrape.sh
-RUN chmod +x scrape.sh && chown user scrape.sh
-RUN mkdir -p .config/rclone
-COPY rclone.conf .config/rclone/rclone.conf
+RUN chmod +x scrape.sh
 COPY redditscraper.py redditscraper.py
 
 CMD "./scrape.sh"

@@ -16,7 +16,7 @@ def getenv(var, default):
 clientid = getenv('CLIENTID', 'U3OVuCLPbRY64A')
 clientsecret = getenv('CLIENTSECRET', 'b9dPOM1KO9PlhjTgYcOOyGAt6qQ')
 reddittopic = getenv('REDDIT', 'python')
-commentlimit = 100#getenv('LIMIT', 10000)
+commentlimit = getenv('LIMIT', 1000)
 commentcounter = 0
 limitreached = False
 reddit = praw.Reddit(client_id=clientid,

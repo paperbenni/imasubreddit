@@ -8,7 +8,7 @@ cd temp
 cat * >> ../train.txt
 cd ..
 
-regexfilter train.txt 'https' '^.{4,200}$'
+regexfilter train.txt 'https' '^.{4,200}$' '\[deleted\]' '^!'
 
 cat train.txt | egrep -o ':;:.*' > train.to
 cat train.txt | egrep -o '.*:;:' > train.from
