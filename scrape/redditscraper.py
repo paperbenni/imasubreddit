@@ -8,7 +8,7 @@ from os import environ
 # import environment variables into python
 def getenv(var, default):
     if var in os.environ:
-        return os.environ["REDDIT"]
+        return os.environ[var]
     else:
         return default
 
@@ -16,7 +16,7 @@ def getenv(var, default):
 clientid = getenv('CLIENTID', 'U3OVuCLPbRY64A')
 clientsecret = getenv('CLIENTSECRET', 'b9dPOM1KO9PlhjTgYcOOyGAt6qQ')
 reddittopic = getenv('REDDIT', 'python')
-commentlimit = getenv('LIMIT', 1000)
+commentlimit = int(getenv('LIMIT', 1000))
 commentcounter = 0
 limitreached = False
 reddit = praw.Reddit(client_id=clientid,
@@ -30,8 +30,8 @@ for submission in subreddit.top(limit=10000):
         break
     if submission.stickied:
         continue
-    print(submission.title)
-    submission.comments.replace_more(limit=10)
+    print(submission.title + "  count " + str(commentcounter))
+    submission.comments.replace_more(limit=20)
     for comment in submission.comments:
 
         # Check for top-level comment
@@ -54,7 +54,6 @@ for submission in subreddit.top(limit=10000):
                     for reply in comment.replies:
                         commentstring = comment.body.replace('\n', '') + ":;:" + reply.body.replace('\n', '') + '\n'
                         myfile.write(commentstring)
-                        print(commentstring)
                         break
 
 print("done")

@@ -14,7 +14,7 @@ while :; do
     mkdir data
     touch data/"$REDDIT.txt"
     python3 redditscraper.py
-    DATE=$(date +%Y%m%d_%H%M%S)
+    DATE=$(date +%Y%m%d_%H%M%S"$REDDIT")
     mv data "$DATE"
     rupl "$DATE"
     rm -rf $DATE
