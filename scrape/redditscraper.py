@@ -15,8 +15,8 @@ def getenv(var, default):
 #reddit authentification
 clientid = getenv('CLIENTID', 'U3OVuCLPbRY64A')
 clientsecret = getenv('CLIENTSECRET', 'b9dPOM1KO9PlhjTgYcOOyGAt6qQ')
-reddittopic = getenv('REDDIT', 'python')
-commentlimit = int(getenv('LIMIT', 1000))
+reddittopic = getenv('REDDIT', 'the_Donald')
+commentlimit = int(getenv('LIMIT', 7000))
 commentcounter = 0
 limitreached = False
 reddit = praw.Reddit(client_id=clientid,
@@ -25,23 +25,19 @@ reddit = praw.Reddit(client_id=clientid,
 
 #get the top
 subreddit = reddit.subreddit(reddittopic)
-for submission in subreddit.top(limit=10000):
+for submission in subreddit.top(limit=1500):
+
     if limitreached:
         break
     if submission.stickied:
         continue
-    print(submission.title + "  count " + str(commentcounter))
-    submission.comments.replace_more(limit=20)
+    # print(submission.title + "  count " + str(commentcounter))
+    submission.comments.replace_more(limit=50)
     for comment in submission.comments:
-
+        print
         # Check for top-level comment
         if comment.parent_id == comment.link_id:
             if comment.replies:
-
-                if 'https://' in comment.body or 'www.' in comment.body:
-                    continue
-                if len(comment.body) < 2:
-                    continue
 
                 if commentcounter <= commentlimit:
                     commentcounter += 1
@@ -50,10 +46,8 @@ for submission in subreddit.top(limit=10000):
                     limitreached = True
                     break
 
-                with open("data/" + reddittopic + ".txt", "a") as myfile:
-                    for reply in comment.replies:
-                        commentstring = comment.body.replace('\n', '') + ":;:" + reply.body.replace('\n', '') + '\n'
-                        myfile.write(commentstring)
-                        break
-
-print("done")
+                for reply in comment.replies:
+                    commentstring = comment.body.replace('\n', '') + ":;:" + reply.body.replace('\n', '')
+                    print(commentstring)
+                    break
+# print("done")
