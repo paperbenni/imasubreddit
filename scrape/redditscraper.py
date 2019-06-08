@@ -40,7 +40,7 @@ for subid in submfile:
         if comment.parent_id == comment.link_id:
             if comment.replies:
                 for reply in comment.replies:
-                    commentstring = comment.body.replace('\n', '') + ":;:" + reply.body.replace('\n', '')
+                    commentstring = comment.body.replace('\n', '') + "pb:;:pb" + reply.body.replace('\n', '')
                     print(commentstring)
                     commentcounter += 1
                     break

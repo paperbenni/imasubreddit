@@ -7,17 +7,19 @@ mv * temp/
 cd temp
 cat * >> ../train.txt
 cd ..
+sort -uo train.txt train.txt
 
 regexfilter train.txt 'https' '^.{,4}$' '\[deleted\]' '^!' ':;:!' '\[removed\]'
 
-cat train.txt | egrep -o ':;:.*' > train2.to
-cat train.txt | egrep -o '.*:;:' > train2.from
+cat train.txt | egrep -o 'pb:;:pb.*' > train2.to
+cat train.txt | egrep -o '.*pb:;:pb' > train2.from
 
-sed -i -e 's/:;://g' train2.to
-sed -i -e 's/:;://g' train2.from
+sed -i -e 's/pb:;:pb//g' train2.to
+sed -i -e 's/pb:;:pb//g' train2.from
 
 shuf -n 100 train2.to > tst2012.to
 shuf -n 100 train2.from > tst2012.from
+
 cp tst2012.from tst2013.from
 cp tst2012.to tst2013.to
 
