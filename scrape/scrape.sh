@@ -8,7 +8,15 @@ pb rclone
 pb grep
 pb reddit
 
-rcloud reddit
+if [ -z "$DROPTOKEN" ]; then
+    echo "warning: no dropbox selected, defaulting to paperbenni mega"
+    rcloud reddit
+else
+    echo "using dropbox with token $DROPTOKEN"
+    pb rclone/dropbox
+    addbox reddit "$DROPTOKEN"
+fi
+
 rclogin reddit sia imasubreddit
 
 cd
