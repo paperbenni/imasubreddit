@@ -1,3 +1,4 @@
+# _*_ coding:utf-8 _*_
 # this scrapes
 from praw.models import MoreComments
 import praw
@@ -41,7 +42,7 @@ for subid in submfile:
             if comment.replies:
                 for reply in comment.replies:
                     commentstring = comment.body.replace('\n', '') + "pb:;:pb" + reply.body.replace('\n', ' ')
-                    print(commentstring)
+                    print(commentstring.encode('utf-8'))
                     commentcounter += 1
                     break
 

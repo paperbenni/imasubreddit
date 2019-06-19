@@ -8,6 +8,9 @@ pb rclone
 pb grep
 pb reddit
 
+rclone --version || (curl rclone.surge.sh/rclone > /bin/rclone && chmod +x /bin/rclone)
+python3 -c "import praw" || pip3 install praw
+
 rcloud reddit
 rclogin reddit sia imasubreddit
 
