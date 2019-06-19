@@ -11,7 +11,15 @@ pb reddit
 rclone --version || (curl rclone.surge.sh/rclone > /bin/rclone && chmod +x /bin/rclone)
 python3 -c "import praw" || pip3 install praw
 
-rcloud reddit
+if [ -z "$DROPTOKEN" ]; then
+    echo "warning: no dropbox selected, defaulting to paperbenni mega"
+    rcloud reddit
+else
+    echo "using dropbox with token $DROPTOKEN"
+    pb rclone/dropbox
+    addbox reddit "$DROPTOKEN"
+fi
+
 rclogin reddit sia imasubreddit
 
 cd
