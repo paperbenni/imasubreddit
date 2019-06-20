@@ -8,14 +8,14 @@ cd temp
 cat * >>../train.txt
 cd ..
 
-sort -u train.txt > train2.txt
-cat train2.txt | shuf > train.txt
+sort -u train.txt >train2.txt
+shuf <train2.txt >train.txt
 rm train2.txt
 
 regexfilter train.txt 'https' '^.{,4}$' '\[deleted\]' '^!' ':;:!' '\[removed\]'
 
-cat train.txt | egrep -o 'pb:;:pb.*' >train2.to
-cat train.txt | egrep -o '.*pb:;:pb' >train2.from
+egrep -o 'pb:;:pb.*' <train.txt >train2.to
+egrep -o '.*pb:;:pb' <train.txt >train2.from
 
 sed -i -e 's/pb:;:pb//g' train2.to
 sed -i -e 's/pb:;:pb//g' train2.from
