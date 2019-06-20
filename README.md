@@ -1,6 +1,6 @@
 # imasubreddit
 
 Create an chatbot from only comments of a subreddit, essentially a personified subreddit.
+# Documentation
 
-# Scrape
-docker run -e REDDIT=yourreddit -e LIMIT=limitofcomments -it paperbenni/reddit
+The documentation can be found on the (Wiki)[https://github.com/paperbenni/imasubreddit/wiki]
