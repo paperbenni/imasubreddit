@@ -5,5 +5,5 @@ cd imasubreddit
 bash install.sh
 bash train/prepare.sh
 cd ..
-
+clear
 curl "https://raw.githubusercontent.com/paperbenni/colab/master/colab.sh" | bash
