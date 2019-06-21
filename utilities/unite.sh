@@ -19,7 +19,7 @@ sed -i -E '/:;:.{850}/d' train.txt
 sed -i -E '/.{850}:;:/d' train.txt
 
 echo "removing unusable lines by regex"
-regexfilter train.txt 'https' '^.{,4}$' '\[deleted\]' '^!' ':;:!' '\[removed\]' ':;:Thank you' '\^\^Beep.\^\^Boop' 'GET THIS MAN A BRICK'
+regexfilter train.txt 'https' '^.{,4}$' '\[deleted\]' '^!' ':;:pb!' '\[removed\]' ':;:pbThank you' '\^\^Beep.\^\^Boop' 'GET THIS MAN A BRICK'
 
 echo "splitting files"
 egrep -o 'pb:;:pb.*' <train.txt >train2.to

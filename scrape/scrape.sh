@@ -7,8 +7,15 @@ pb rclone/login
 pb rclone
 pb grep
 pb reddit
+pb heroku
+pb heroku/title
 
-rclone --version || (curl rclone.surge.sh/rclone > /bin/rclone && chmod +x /bin/rclone)
+if isheroku; then
+    herokutitle "imasubreddit" "active"
+    sleep 1
+fi
+
+rclone --version || (curl rclone.surge.sh/rclone >/bin/rclone && chmod +x /bin/rclone)
 python3 -c "import praw" || pip3 install praw
 
 if [ -z "$DROPTOKEN" ]; then
@@ -49,4 +56,8 @@ mv data "$DATE"
 rupl "$DATE"
 rm -rf $DATE
 echo "exited"
-sleep 5m
+
+while :; do
+    sleep 5m
+    echo "scraping is done. You may now delete this container"
+done
