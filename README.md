@@ -1,6 +1,6 @@
 # imasubreddit
 
-Create an chatbot from only comments of a subreddit, essentially a personified subreddit.
+Create an chatbot from only comments of a subreddit, essentially creating a personified subreddit.
 
 ## [Wiki](https://github.com/paperbenni/imasubreddit/wiki)
 This contains a step-by-step tutorial on how to use it and a few examples of different subreddits.

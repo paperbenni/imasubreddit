@@ -5,21 +5,17 @@ pb grep
 mkdir temp
 mv * temp/
 cd temp
-cat * >>../train.txt
+cat * >>../train2.txt
 cd ..
 
 echo "removing duplicate lines"
-sort -u train.txt >train2.txt
+# sort -u train.txt >train2.txt
 echo "shuffling lines"
 shuf <train2.txt >train.txt
 rm train2.txt
 
-echo "removing long lines"
-sed -i -E '/:;:.{850}/d' train.txt
-sed -i -E '/.{850}:;:/d' train.txt
-
 echo "removing unusable lines by regex"
-regexfilter train.txt 'https' '^.{,4}$' '\[deleted\]' '^!' ':;:pb!' '\[removed\]' ':;:pbThank you' '\^\^Beep.\^\^Boop' 'GET THIS MAN A BRICK'
+regexfilter train.txt '^.{1800,}.$' 'http' 'https' '^.{,4}$' '\[deleted\]' '^!' ':;:pb!' '\[removed\]' ':;:pbThank you' '\^\^Beep.\^\^Boop' 'GET THIS MAN A BRICK'
 
 echo "splitting files"
 egrep -o 'pb:;:pb.*' <train.txt >train2.to
