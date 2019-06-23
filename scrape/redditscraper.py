@@ -2,6 +2,7 @@
 # this scrapes
 from praw.models import MoreComments
 import praw
+import time
 
 import os
 from os import environ
@@ -29,6 +30,7 @@ reddit = praw.Reddit(client_id=clientid,
 submfile = open("submissions.txt", "r")
 
 for subid in submfile:
+    time.sleep(1)
     if commentcounter >= commentlimit:
         break
     submid=subid.replace('\n', '')

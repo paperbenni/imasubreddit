@@ -33,13 +33,16 @@ cd
 mkdir data
 touch data/"$REDDIT.txt"
 
-echo "getting submissions"
-rdsubmissions "$REDDIT"
+#default limit
+LIMIT=${LIMIT:-10000}
+
+#use pushshift for ids
+echo "getting submission ids"
+rdsubmissions "$REDDIT" "$LIMIT"
 rdid push.txt submissions.txt
 rm push.txt
 
-echo "scraping"
-
+# status updates
 while :; do
     if ! test -e data; then
         break
@@ -49,6 +52,8 @@ while :; do
     sleep 20
 done &
 
+#start scraper
+echo "scraping"
 python3 redditscraper.py >data/"$REDDIT.txt"
 echo "done scraping, uploading"
 DATE=$(date +%Y%m%d_%H%M%S)
