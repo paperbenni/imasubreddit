@@ -7,5 +7,3 @@ pip3 install -r requirements.txt
 cd new_data
 rm *
 cd ..
-cd /content
-rm -rf *
