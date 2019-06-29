@@ -1,6 +1,8 @@
+# _*_ coding:utf-8 _*_
 # this scrapes
 from praw.models import MoreComments
 import praw
+import time
 
 import os
 from os import environ
@@ -28,6 +30,7 @@ reddit = praw.Reddit(client_id=clientid,
 submfile = open("submissions.txt", "r")
 
 for subid in submfile:
+    time.sleep(1)
     if commentcounter >= commentlimit:
         break
     submid=subid.replace('\n', '')
@@ -41,7 +44,7 @@ for subid in submfile:
             if comment.replies:
                 for reply in comment.replies:
                     commentstring = comment.body.replace('\n', '') + "pb:;:pb" + reply.body.replace('\n', ' ')
-                    print(commentstring)
+                    print(commentstring.encode('utf-8'))
                     commentcounter += 1
                     break
 

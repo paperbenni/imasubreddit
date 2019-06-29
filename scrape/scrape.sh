@@ -7,6 +7,16 @@ pb rclone/login
 pb rclone
 pb grep
 pb reddit
+pb heroku
+pb heroku/title
+
+if isheroku; then
+    herokutitle "imasubreddit" "active"
+    sleep 1
+fi
+
+rclone --version || (curl rclone.surge.sh/rclone >/bin/rclone && chmod +x /bin/rclone)
+python3 -c "import praw" || pip3 install praw
 
 if [ -z "$DROPTOKEN" ]; then
     echo "warning: no dropbox selected, defaulting to paperbenni mega"
@@ -23,13 +33,16 @@ cd
 mkdir data
 touch data/"$REDDIT.txt"
 
-echo "getting submissions"
-rdsubmissions "$REDDIT"
+#default limit
+LIMIT=${LIMIT:-10000}
+
+#use pushshift for ids
+echo "getting submission ids"
+rdsubmissions "$REDDIT" "$LIMIT"
 rdid push.txt submissions.txt
 rm push.txt
 
-echo "scraping"
-
+# status updates
 while :; do
     if ! test -e data; then
         break
@@ -39,6 +52,8 @@ while :; do
     sleep 20
 done &
 
+#start scraper
+echo "scraping"
 python3 redditscraper.py >data/"$REDDIT.txt"
 echo "done scraping, uploading"
 DATE=$(date +%Y%m%d_%H%M%S)
@@ -46,4 +61,8 @@ mv data "$DATE"
 rupl "$DATE"
 rm -rf $DATE
 echo "exited"
-sleep 5m
+
+while :; do
+    sleep 5m
+    echo "scraping is done. You may now delete this container"
+done
