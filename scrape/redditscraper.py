@@ -7,6 +7,7 @@ import time
 import os
 from os import environ
 
+
 # import environment variables into python
 def getenv(var, default):
     if var in os.environ:
@@ -14,7 +15,8 @@ def getenv(var, default):
     else:
         return default
 
-#reddit authentification
+
+# reddit authentification
 clientid = getenv('CLIENTID', 'U3OVuCLPbRY64A')
 clientsecret = getenv('CLIENTSECRET', 'b9dPOM1KO9PlhjTgYcOOyGAt6qQ')
 reddittopic = getenv('REDDIT', 'the_Donald')
@@ -24,8 +26,6 @@ reddit = praw.Reddit(client_id=clientid,
                      client_secret=clientsecret,
                      user_agent='imasubreddit')
 
-#get the top
-#subreddit = reddit.subreddit(reddittopic)
 
 submfile = open("submissions.txt", "r")
 
@@ -33,7 +33,7 @@ for subid in submfile:
     time.sleep(1)
     if commentcounter >= commentlimit:
         break
-    submid=subid.replace('\n', '')
+    submid = subid.replace('\n', '')
     submission = reddit.submission(submid)
     if submission.stickied:
         continue
@@ -43,10 +43,13 @@ for subid in submfile:
         if comment.parent_id == comment.link_id:
             if comment.replies:
                 for reply in comment.replies:
-                    commentstring = comment.body.replace('\n', '') + "pb:;:pb" + reply.body.replace('\n', ' ')
+                    commentstring = \
+                        comment.body.replace('\n', '') + \
+                        "pb:;:pb" + \
+                        reply.body.replace('\n', ' ')
                     print(commentstring.encode('utf-8'))
                     commentcounter += 1
                     break
 
 submfile.close()
-# print("done")
+print("done scraping")
